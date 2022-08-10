@@ -10,6 +10,10 @@ RUN curl -kLfsSo /tmp/go-linux.tar.gz https://golang.org/dl/go1.17.1.linux-amd64
   ; rm -rf /usr/local/go ; tar -C /usr/local -xzf /tmp/go-linux.tar.gz
 ENV PATH=$PATH:/usr/local/go/bin
 
+# Cross compiling
+ENV GOOS=linux
+ENV GOARCH=amd64
+
 # workspace directory
 WORKDIR /go/src/app
 
@@ -17,7 +21,7 @@ WORKDIR /go/src/app
 COPY . .
 
 # build executable
-RUN go mod tidy ; go build -o ./bin/app .
+RUN go mod tidy ; go build main.go
 
 # multistage image
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
