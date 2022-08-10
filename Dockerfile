@@ -21,7 +21,7 @@ WORKDIR /go/src/app
 COPY . .
 
 # build executable
-RUN go mod tidy ; go build ./main.go
+RUN go mod tidy ; go build ./bin/app/main.go
 
 # multistage image
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
